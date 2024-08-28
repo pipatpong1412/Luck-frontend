@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import ReservedContext, { ReservedContextProvider } from "../contexts/ReserveContext";
 import InfoContext from "../contexts/infoContext";
 import Swal from 'sweetalert2'
-
+import './AdminReserve.css';
 export default function AdminReserved() {
     return (
         <ReservedContextProvider>
@@ -34,9 +34,8 @@ function ReserveItem({ item, member }) {
 
     const hdlSubmit = (e, statusReserve) => {
         e.preventDefault();
-        setStatus(statusReserve)
         Swal.fire({
-            title: status === 'APPROVED' ? "ยืนยันการจอง" : "ยกเลิกการจอง",
+            title: statusReserve === 'APPROVED' ? "ยืนยันการจอง" : "ยกเลิกการจอง",
             text: "คุณจะไม่สามารถแก้ไขได้",
             icon: "warning",
             showCancelButton: true,
@@ -45,10 +44,9 @@ function ReserveItem({ item, member }) {
             confirmButtonText: "ยืนยัน"
         }).then((result) => {
             if (result.isConfirmed) {
-                updateStatusReserved(item.id, status);
+                updateStatusReserved(item.id, statusReserve);
                 Swal.fire({
-                    title: status === 'APPROVED' ? "ยืนยันการจองสำเร็จ!" : "ยกเลิกการจองสำเร็จ",
-                    // text: "Your file has been deleted.",
+                    title: statusReserve === 'APPROVED' ? "ยืนยันการจองสำเร็จ!" : "ยกเลิกการจองสำเร็จ",
                     icon: "success"
                 }).then(() => {
                 })
@@ -79,7 +77,7 @@ function ReserveItem({ item, member }) {
                     <div className="text-[18px] text-gray-700 font-medium">{item.disease}</div>
                 </div>
                 <div className="flex items-center mb-4">
-                    <div className="text-[20px] font-bold mr-4">Disease</div>
+                    <div className="text-[20px] font-bold mr-4">Status</div>
                     <div className="text-[18px] text-gray-700 font-medium">{item.status}</div>
                 </div>
 
@@ -88,7 +86,7 @@ function ReserveItem({ item, member }) {
                     {["PENDING"].includes(item.status) && (
                         <>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md" onClick={(e) => hdlSubmit(e, 'APPROVED')}>ยืนยัน</button>
-                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md" onClick={(e) => hdlSubmit(e, 'CANCEL')}>ยกเลิก</button>
+                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md" onClick={(e) => hdlSubmit(e, 'CANCELED')}>ยกเลิก</button>
                         </>
                     )}
                 </div>

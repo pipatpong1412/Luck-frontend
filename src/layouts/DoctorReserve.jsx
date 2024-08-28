@@ -29,7 +29,7 @@ function ReserveDashboard() {
 }
 
 function ReserveItem({ item, member }) {
-    const { updateStatusReserved } = useContext(ReservedContext);
+    const { doctorUpdateStatusReserved } = useContext(ReservedContext);
     // const [status, setStatus] = useState('')
     // const [notes, setNotes] = useState('')
 
@@ -57,9 +57,9 @@ function ReserveItem({ item, member }) {
         }).then((result) => {
             if (result.isConfirmed) {
                 if (typeof notes === "string") {
-                    updateStatusReserved(item.id, { status, notes });
+                    doctorUpdateStatusReserved(item.id, { status, notes });
                 } else {
-                    updateStatusReserved(item.id, { status });
+                    doctorUpdateStatusReserved(item.id, { status });
                 }
                 Swal.fire({
                     title: status === 'RESERVED' ? "ยืนยันการจองสำเร็จ!" : "ยกเลิกการจองสำเร็จ",
@@ -93,7 +93,7 @@ function ReserveItem({ item, member }) {
                     <div className="text-[18px] text-gray-700 font-medium">{item.disease}</div>
                 </div>
                 <div className="flex items-center mb-4">
-                    <div className="text-[20px] font-bold mr-4">Disease</div>
+                    <div className="text-[20px] font-bold mr-4">Status</div>
                     <div className="text-[18px] text-gray-700 font-medium">{item.status}</div>
                 </div>
 

@@ -67,7 +67,7 @@ function ReservedContextProvider(props) {
 
   const updateStatusReserved = async (bookingId, status) => {
     try {
-      await axios.patch(`http://localhost:8000/booking/update/${bookingId}`, status);
+      await axios.patch(`http://localhost:8000/booking/update/${bookingId}`, { status });
       setTrigger(prv => !prv)
       // if (re.status === 200) {
       // }
@@ -77,7 +77,14 @@ function ReservedContextProvider(props) {
 
     }
   }
-
+  const doctorUpdateStatusReserved = async (bookingId, status) => {
+    try {
+      await axios.patch(`http://localhost:8000/booking/update/${bookingId}`, status);
+      setTrigger(prv => !prv)
+    } catch (error) {
+      alert(error.message)
+    }
+  }
   const updateUserSeenStatus = async (bookingId, seen) => {
     try {
       await axios.patch(`http://localhost:8000/booking/update/${bookingId}`, { seen });
@@ -93,13 +100,16 @@ function ReservedContextProvider(props) {
 
   const updateBooking = async (bookingId, data) => {
     try {
+      console.log(data)
       const token = localStorage.getItem('token')
       const rs = await axios.patch(`http://localhost:8000/booking/patch/${bookingId}`, data, {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (rs.status === 200) {
         alert('Update Successfully')
+        location.replace('/reserve')
       }
+
 
     } catch (error) {
       alert(error.message)
@@ -107,7 +117,7 @@ function ReservedContextProvider(props) {
   }
 
   return (
-    <ReservedContext.Provider value={{ data, createBooking, adminData, doctorData, updateStatusReserved, updateBooking, updateUserSeenStatus }}>
+    <ReservedContext.Provider value={{ data, createBooking, adminData, doctorData, updateStatusReserved, updateBooking, updateUserSeenStatus, doctorUpdateStatusReserved }}>
       {props.children}
     </ReservedContext.Provider>
   );

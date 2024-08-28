@@ -56,31 +56,42 @@ function ReserveItem({ item }) {
 
   useEffect(() => {
     let isUserSeen = null
-    if (!item.seen) {
+    if (!item.seen && item.status === "CANCELED") {
       Swal.fire({
         title: `การจองของวัน ${thaiDate} ถูกยกเลิก!`,
-        text: `สาเหตุ: ${item.notes}`,
+        text: `สาเหตุ: ${item.notes === null ? 'ไม่ระบุ' : item.notes}`,
         icon: "error",
-        confirmButtonText: 'ตกลง',
+        confirmButtonText: 'เลื่อนวันจอง',
         confirmButtonColor: '#3085d6',
+        cancelButtonText: 'ยกเลิก',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
         footer: '<a href="/new">ต้องการจองคิวใหม่ ?</a>'
       }).then((result) => {
         if (result.isConfirmed) {
           isUserSeen = true
+          navigate(`/editresrve/${item.id}`)
           updateUserSeenStatus(item.id, isUserSeen)
         }
       });
     }
-  }, [])
+  }, [item.id, item.notes, item.seen, item.status, navigate, thaiDate, updateUserSeenStatus])
 
   const hdlDetail = () => {
     Swal.fire({
       title: `การจองของวัน ${thaiDate} ถูกยกเลิก!`,
-      text: `สาเหตุ: ${item.notes}`,
+      text: `สาเหตุ: ${item.notes === null ? 'ไม่ระบุ' : item.notes}`,
       icon: "error",
-      confirmButtonText: 'ตกลง',
+      showCancelButton: true,
+      confirmButtonText: 'เลื่อนวันจอง',
+      cancelButtonText: 'ยกเลิก',
       confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
       footer: '<a href="/new">ต้องการจองคิวใหม่ ?</a>'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/editresrve/${item.id}`)
+      }
     });
   }
 

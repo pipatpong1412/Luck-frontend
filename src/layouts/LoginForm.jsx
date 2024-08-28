@@ -28,7 +28,7 @@ export default function LoginForm() {
       const rs1 = await axios.get('http://localhost:8000/auth/me', {
         headers: { Authorization: `Bearer ${rs.data.token}` }
       });
-      navigate('/Home');
+      navigate('/home');
       setUser(rs1.data);
     } catch (err) {
       alert(err.response.data.error);

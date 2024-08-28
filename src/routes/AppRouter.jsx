@@ -17,6 +17,11 @@ import Show from '../layouts/Show'
 import AdminHome from '../layouts/home1'
 import Infoadmin from '../layouts/Informationadmin'
 import DoctorReserved from '../layouts/DoctorReserve'
+import GuestHomepage from '../layouts/Home2'
+import DoctorHome from'../layouts/homedoctor'
+import Dental from'../layouts/dental'
+import Tooth from'../layouts/tooth'
+import Care from'../layouts/care'
 // import Reservatiolist from '../layouts/Reservationlist'
 
 
@@ -28,12 +33,15 @@ const guestRouter = createBrowserRouter([
       <Outlet />
     </>,
     children: [
-      { index: true, element: <LoginForm /> },
+      { index: true, element: <GuestHomepage /> },
       { path: '/register', element: <RegisterForm /> },
       { path: '/login', element: <LoginForm /> },
-      { path: '/home', element: <HOME /> },
+      { path: '/Home', element: <GuestHomepage /> },
       { path: '/Information', element: <Information /> },
       { path: '/reserve', element: <Reserved /> },
+      { path: '/dental', element: <Dental/> },
+      { path: '/tooth', element: <Tooth/> },
+      { path: '/care', element: <Care/> },
       // { path: '/Reservation list', element: <Reservatiolist />},
 
     ]
@@ -48,7 +56,7 @@ const userRouter = createBrowserRouter([
       <Outlet />
     </>,
     children: [
-      { index: true, element: <Information /> },
+      { index: true, element: <HOME /> },
       { path: '/new/*', element: <NewTodoForm /> },
       { path: '/login', element: <LoginForm /> },
       { path: '/home', element: <HOME /> },
@@ -59,6 +67,7 @@ const userRouter = createBrowserRouter([
       { path: '/newtime', element: <Newtime /> },
       { path: '/time', element: <Time /> },
       { path: '/show', element: <Show /> },
+      
     ]
   }
 ])
@@ -72,7 +81,7 @@ const AdminRouter = createBrowserRouter([
     </>,
     children: [
       { index: true, element: <AdminHome /> },
-      { path: '/Home', element: <AdminHome /> },
+      { path: '/home', element: <AdminHome /> },
       { path: '/new/*', element: <NewTodoForm /> },
       { path: '/login', element: <LoginForm /> },
       { path: '/Information', element: <Information /> },
@@ -81,6 +90,7 @@ const AdminRouter = createBrowserRouter([
       { path: '/time', element: <Time /> },
       { path: '/show', element: <Show /> },
       { path: '/infoadmin', element: <Infoadmin /> },
+      
     ]
   }
 ])
@@ -93,8 +103,8 @@ const DoctorRouter = createBrowserRouter([
       <Outlet />
     </>,
     children: [
-      { index: true, element: <AdminHome /> },
-      { path: '/Home', element: <AdminHome /> },
+      { index: true, element: <DoctorHome /> },
+      { path: '/home', element: <DoctorHome /> },
       { path: '/new/*', element: <NewTodoForm /> },
       { path: '/login', element: <LoginForm /> },
       { path: '/Information', element: <Information /> },
@@ -103,6 +113,7 @@ const DoctorRouter = createBrowserRouter([
       { path: '/time', element: <Time /> },
       { path: '/show', element: <Show /> },
       { path: '/infoadmin', element: <Infoadmin /> },
+      
     ]
   }
 ])

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
+import Swal from 'sweetalert2';
 export default function RegisterForm() {
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -11,7 +11,7 @@ export default function RegisterForm() {
     lastname: '',
     email: '',
     password: '',
-    phone: ''
+    
   });
 
   const hdlChange = e => {
@@ -21,15 +21,23 @@ export default function RegisterForm() {
   const hdlSubmit = async e => {
     try {
       e.preventDefault();
-      // validation
-
       const rs = await axios.post('http://localhost:8000/auth/register', input);
       if (rs.status === 200) {
-        alert('Register Successful');
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Register Successful",
+          showConfirmButton: false,
+          timer: 1500
+        });
         navigate('/login');
       }
     } catch (err) {
-      alert(err.response.data.error);
+      Swal.fire({
+        icon: "error",
+        title: "Register Failed!",
+        text: `${err.response.data.error}`,
+      });
     }
   };
 
@@ -40,7 +48,7 @@ export default function RegisterForm() {
       lastname: '',
       email: '',
       password: '',
-      phone: ''
+      
     });
   };
 
@@ -144,21 +152,7 @@ export default function RegisterForm() {
               transition={{ duration: 0.5, delay: 0.7 }}
             />
           </div>
-          <div>
-            <label className="text-gray-800 text-sm mb-2 block">Phone</label>
-            <motion.input
-              type="text"
-              name="phone"
-              value={input.phone}
-              onChange={hdlChange}
-              className="w-full text-gray-800 text-sm bg-gray-200 border border-gray-300 px-4 py-3 rounded-[12px] outline-blue-600"
-              placeholder="Enter your phone number"
-              required
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            />
-          </div>
+          
           <div className="mt-8 flex justify-between">
             <motion.button
               type="submit"

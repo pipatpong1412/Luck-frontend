@@ -45,7 +45,7 @@ function FormNew({ user }) {
 
   const [input, setInput] = useState({
     datetime: '',
-    
+
   })
 
 
@@ -61,26 +61,21 @@ function FormNew({ user }) {
 
   return (
     <form className="flex flex-col min-w-[70px] border rounded w-2/4 mx-auto p-2 gap-2 bg-pink-100 mt-4 " onSubmit={hdlSubmit}>
-  <label className="form-control w-full max-w-[140px]">
-    <div className="label">
-      <span className="label-text text-pink-800">Due Date</span>
-    </div>
-    <input type="datetime-local" name="datetime" value={input.datetime} onChange={hdlChange} className="bg-pink-200" />
-  </label>
-    
-  
+      <label className="form-control w-full max-w-[140px]">
+        <div className="label">
+          <span className="label-text text-pink-800">Due Date</span>
+        </div>
+        <input type="datetime-local" name="datetime" value={input.datetime} onChange={hdlChange} className="bg-pink-200" />
+      </label>
+      <div></div>
 
-  
-
-  <div></div>
-
-  <button
-    type="submit"
-    className="btn btn-outline btn-pink text-pink-800 border-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition duration-300 ease-in-out shadow-md rounded-full"
-  >
-    Add New
-  </button>
-</form>
+      <button
+        type="submit"
+        className="btn btn-outline btn-pink text-pink-800 border-pink-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition duration-300 ease-in-out shadow-md rounded-full"
+      >
+        Add New
+      </button>
+    </form>
 
 
 
